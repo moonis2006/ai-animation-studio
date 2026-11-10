@@ -1,0 +1,41 @@
+name: Render First 3D Film
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Blender (CPU)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender ffmpeg
+          blender --version
+
+      - name: Render the animation
+        run: |
+          mkdir -p output
+          blender --background --python scene.py
+
+      - name: Verify video
+        run: |
+          test -s output/pip_first_film.mp4
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 output/pip_first_film.mp4
+
+      - name: Downloadable film and Blender project
+        uses: actions/upload-artifact@v4
+        with:
+          name: pip-first-film
+          path: |
+            output/pip_first_film.mp4
+            output/pip_first_film.blend
+          if-no-files-found: error
+          retention-days: 7
