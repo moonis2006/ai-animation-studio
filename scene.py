@@ -9,18 +9,15 @@ bpy.ops.object.select_all(action='SELECT')
 bpy.ops.object.delete(use_global=False)
 
 scn=bpy.context.scene
-scn.render.engine='BLENDER_EEVEE_NEXT' if bpy.app.version >= (4, 2, 0) else 'BLENDER_EEVEE'
+scn.render.engine='BLENDER_EEVEE'
 scn.render.resolution_x=480
 scn.render.resolution_y=854
 scn.render.resolution_percentage=100
 scn.render.fps=12
 scn.frame_start=1
 scn.frame_end=48
-scn.render.image_settings.file_format='FFMPEG'
-scn.render.ffmpeg.format='MPEG4'
-scn.render.ffmpeg.codec='H264'
-scn.render.ffmpeg.constant_rate_factor='MEDIUM'
-scn.render.filepath=os.path.abspath('//output/pip_first_film.mp4')
+scn.render.image_settings.file_format='PNG'
+scn.render.filepath=os.path.abspath('//output/frames/frame_')
 scn.render.film_transparent=False
 scn.world.color=(0.04,0.05,0.10)
 scn.view_settings.view_transform='AgX'
