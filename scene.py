@@ -9,7 +9,7 @@ bpy.ops.object.select_all(action='SELECT')
 bpy.ops.object.delete(use_global=False)
 
 scn=bpy.context.scene
-scn.render.engine='BLENDER_EEVEE_NEXT'
+scn.render.engine='BLENDER_EEVEE_NEXT' if bpy.app.version >= (4, 2, 0) else 'BLENDER_EEVEE'
 scn.render.resolution_x=480
 scn.render.resolution_y=854
 scn.render.resolution_percentage=100
