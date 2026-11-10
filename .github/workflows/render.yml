@@ -24,6 +24,7 @@ jobs:
         run: |
           mkdir -p output
           blender --background --python scene.py
+          ffmpeg -y -framerate 12 -i output/frames/frame_%04d.png -c:v libx264 -pix_fmt yuv420p -movflags +faststart output/pip_first_film.mp4
 
       - name: Verify video
         run: |
